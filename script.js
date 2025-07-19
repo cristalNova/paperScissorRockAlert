@@ -2,6 +2,21 @@ let humanScore = 0;
 let computerScore = 0;
 let tied = 0;
 
+//Selectors
+
+let btnsContainer = document.querySelector(".buttons");
+let resultTxt = document.querySelector(".result > p");
+let score = document.querySelector(".scoreBoard p:first-child");
+let winner = document.querySelector(".scoreBoard p:last-child")
+let userImg = document.querySelector(".movement div:first-child img");
+let systemImg = document.querySelector(".movement div:last-child img");
+
+btnsContainer.addEventListener("click", (event) => {
+    let btn = event.target.closest("button");
+    let userAns = btn.getAttribute("id");
+    playRound(userAns);
+
+});
 
 function getComputerChoice(){
     let min = 1; // inclusive
@@ -19,9 +34,9 @@ function getComputerChoice(){
     }
 }
 
-function getHumanChoice(){
-    let userAns = prompt("Rock,Paper or Scissor?");
-    return userAns.toLowerCase();
+function addImages (user,system){
+    userImg.setAttribute("src","resources/"+user+".png");
+    systemImg.setAttribute("src","resources/"+system+".png");
 }
 
 function addHumanScore(){
@@ -32,13 +47,16 @@ function addComputerScore(){
     computerScore++;
 }
 
-function playRound(userAnswer,computerAnswer){
-    let movements= "\nUser played "+userAnswer.toUpperCase()+"\nComputer played "+computerAnswer.toUpperCase();
-    let systemWins = "System wins"+movements;
-    let userWins = "User wins"+movements;
+function playRound(userAnswer){
+    let computerAnswer = getComputerChoice();    
+    let movements= "User played "+userAnswer.toUpperCase()+"\nComputer played "+computerAnswer.toUpperCase();
+    let systemWins = "System won\n"+movements;
+    let userWins = "User won\n"+movements;
+
+    addImages(userAnswer,computerAnswer)
 
     if (userAnswer == computerAnswer){
-        return "Tied\nBoth selected "+computerAnswer.toUpperCase();
+        resultTxt.textContent = "Tied\nBoth selected "+computerAnswer.toUpperCase()+"\n  ";
         tied++;
     }
 
@@ -46,67 +64,45 @@ function playRound(userAnswer,computerAnswer){
         case "rock":
             if(computerAnswer == "paper"){
                 addComputerScore();
-                return systemWins;
+                resultTxt.textContent = systemWins;
             }
             if(computerAnswer == "scissor"){
                 addHumanScore();
-                return userWins;
+                resultTxt.textContent = userWins;
             }
             break;
         case "paper":
             if(computerAnswer == "scissor"){
                 addComputerScore();
-                return systemWins;
+                resultTxt.textContent = systemWins;
             }
             if(computerAnswer == "rock"){
                 addHumanScore();
-                return userWins;
+                resultTxt.textContent = userWins;
             }
             break;
         case "scissor":
             if(computerAnswer == "rock"){
                 addComputerScore();
-                return systemWins;
+                resultTxt.textContent = systemWins;
             }
             if(computerAnswer == "paper"){
                 addHumanScore();
-                return userWins;
+                resultTxt.textContent = userWins;
             }
             break;
     }
-}
-
-function playGame (rounds){
-    let userAnswer = "";
-    let computerAnswer = "";
-    let resultOfRound = "";
-
-    for(let i = 1; i <= rounds; i++){
-        userAnswer = getHumanChoice();
-        computerAnswer = getComputerChoice();
-        resultOfRound = playRound(userAnswer,computerAnswer);
-
-        alert(resultOfRound);
-
-    }
-
-    let result = "\nUser: "+humanScore+"\nSystem: "+computerScore;
 
     if (humanScore > computerScore){
-        alert("User wins"+result);
+        winner.textContent = "User is winning";
     } else if (humanScore < computerScore){
-        alert("System wins"+result);
+        winner.textContent = "System is winning";
     } else if (humanScore == computerScore){
-        alert("Theres a tied"+result);
+        winner.textContent = "There's currently a tied";
     }
-}
 
-function main(){
-    let rounds = prompt("How many rounds do you wanna play?\nPlease enter a number");
-    playGame(rounds);
+    score.textContent = "\nUser: "+humanScore+"\nSystem: "+computerScore+"\nTies: "+tied;
 }
-
-main();
 
 
 
