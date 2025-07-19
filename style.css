@@ -1,0 +1,97 @@
+:root{
+        --dark-blue: #1b2647;
+        --dark-purple: #4a589b;
+        --purple: #8295fb;
+        --light-purple: #c2d6ff;
+        --black: #000;
+        --white: #fff;
+}
+
+body{
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        font-family: "Intel One Mono";
+}
+
+.buttons{
+        display: flex;
+        gap: 20px;
+        padding: 50px;
+}
+
+.buttons button{
+        border-radius: 50%;
+        height: 200px;
+        width: 200px;
+        border: none;
+        outline: none;
+        background-color: var(--purple);
+}
+
+.buttons button:hover{
+        cursor: pointer;
+}
+
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+}
+
+header h1 {
+        font-family: "Bitcount Prop Double";
+}
+
+header{
+        display: flex;
+        width: auto;
+        justify-content: center;
+        background-color: var(--dark-blue);
+        padding: 30px;
+        color: var(--light-purple);
+}
+
+main{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light-purple);
+}
+
+.movement{
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+}
+
+.movement div{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.movement div img{
+        height: 80px;
+}
+
+.result{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
+
+.result > p{
+        white-space: pre-line;
+        text-align: center;
+}
+
+.scoreBoard{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+}
